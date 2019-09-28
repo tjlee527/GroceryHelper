@@ -5,7 +5,10 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      required: false
+      required: false,
+      item: '',
+      type: '',
+      price: ''
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -32,6 +35,11 @@ class Form extends React.Component {
     this.props.addNewItem(this.state);
   }
 
+  checkRequiredFields() {
+    const {item, type, price} = this.state;
+    return item && type && price;
+  }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -46,6 +54,7 @@ class Form extends React.Component {
         <label>
           Select Type: 
           <select value={this.state.type} onChange={this.handleTypeChange}>
+            <option value=""></option>
             <option value="protein">Protein</option>
             <option value="vegetable">Vegetable</option>
             <option value="carb">Carb</option>
@@ -71,7 +80,7 @@ class Form extends React.Component {
             onChange={this.handleInputChange} />
         </label>
         <br />
-        <input type="submit" value="Submit" />
+        {this.checkRequiredFields() ? <input type="submit" value="Submit" /> : null}
       </form>
     );
   }

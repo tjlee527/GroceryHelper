@@ -27,11 +27,23 @@ class App extends Component{
     })
   }
 
+  componentDidMount() {
+    $.ajax({
+      type: 'GET',
+      url: '/api/item',
+      success: (response) => {
+        this.setState({
+          itemsList: response
+        })
+      }
+    })
+  }
+
 
   render(){
     return(
       <div className="App">
-        <h1> Grocery List </h1>
+        <h1> Groceries </h1>
         <Form addNewItem={this.addNewItem}/>
       </div>
     );
