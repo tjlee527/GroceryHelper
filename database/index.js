@@ -15,8 +15,10 @@ db.once('open', function() {
 const itemSchema = new Schema({
   item: String,
   type: String,
-  price: Number, 
+  price: String, 
   required: String,
 });
 
 const Items = mongoose.model('Items', itemSchema);
+
+module.exports = Items;
