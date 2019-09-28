@@ -1,7 +1,9 @@
 import React, { Component} from "react";
 import "./App.css";
-import Form from './Form.jsx';
 import $ from 'jquery';
+import Form from './Form.jsx';
+import GroceryList from './GroceryList.jsx';
+
 
 class App extends Component{
   constructor(props) {
@@ -30,10 +32,19 @@ class App extends Component{
   componentDidMount() {
     $.ajax({
       type: 'GET',
-      url: '/api/item',
+      url: '/api/item/required',
       success: (response) => {
         this.setState({
-          itemsList: response
+          itemsListRequired: response
+        })
+      }
+    })
+    $.ajax({
+      type: 'GET',
+      url: '/api/item/fun',
+      success: (response) => {
+        this.setState({
+          itemFun: response
         })
       }
     })
@@ -44,6 +55,7 @@ class App extends Component{
     return(
       <div className="App">
         <h1> Groceries </h1>
+        {this.state.itemsListRequired && this.state.itemFun ? <GroceryList itemFun={this.state.itemFun} itemsListRequired={this.state.itemsListRequired}/> : null}
         <Form addNewItem={this.addNewItem}/>
       </div>
     );

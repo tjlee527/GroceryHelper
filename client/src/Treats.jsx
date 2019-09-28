@@ -1,14 +1,12 @@
 import React, { Component} from "react";
 import "./App.css";
 import ListItem from './ListItem.jsx';
-import Treats from './Treats.jsx';
 
-
-class GroceryList extends Component{
+class Treats extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      affordable: []
+      affordableTreats: []
     }
   }
 
@@ -16,7 +14,7 @@ class GroceryList extends Component{
     let currentCost = 0;
     let budget = 20;
     let budgItems = [];
-    let items = this.props.itemsListRequired; 
+    let items = this.props.itemsListFun; 
     items.sort((a, b) => {
       return parseFloat(a.price) - parseFloat(b.price)
     })
@@ -30,7 +28,7 @@ class GroceryList extends Component{
       }
     }
     this.setState({
-      affordable: budgItems
+      affordableTreats: budgItems
     })
   }
 
@@ -39,22 +37,18 @@ class GroceryList extends Component{
   }
 
   render(){
-    const items = this.state.affordable; 
-
+    const items = this.state.affordableTreats; 
     return(
-      <div>
-        <div className="necessities">
-          <h4>Necessities:</h4>
-          <ul> 
-          {items.map((item, index) => 
-            <ListItem key={index} item={item} />
-          )}
-          </ul>
-        </div>
-      {this.state.affordable ? < Treats itemsListFun={this.props.itemFun} /> : null}
+      <div className="splurges">
+        <h4>Treats:</h4>
+        <ul> 
+        {items.map((item, index) => 
+          <ListItem key={index} item={item} />
+        )}
+        </ul>
       </div>
     );
   }
 }
 
-export default GroceryList;
+export default Treats;

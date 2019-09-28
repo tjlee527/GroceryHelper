@@ -10,8 +10,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/../client/dist'));
 
 
-app.get('/api/item', (req, res) => {
-  Items.find({}, (err, docs) => {
+app.get('/api/item/required', (req, res) => {
+  Items.find({ required: 'true'}, (err, docs) => {
+    if (err) {
+      res.sendStatus(500);
+    }
+    res.send(docs)
+  });
+})
+
+app.get('/api/item/fun', (req, res) => {
+  Items.find({required: 'false'}, (err, docs) => {
     if (err) {
       res.sendStatus(500);
     }
