@@ -17,6 +17,7 @@ const itemSchema = new Schema({
   type: String,
   price: String, 
   required: String,
+  amount: Number
 });
 
 const Items = mongoose.model('Items', itemSchema);

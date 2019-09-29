@@ -10,34 +10,8 @@ class Treats extends Component{
     }
   }
 
-  rankGroceries() {
-    let currentCost = 0;
-    let budget = 20;
-    let budgItems = [];
-    let items = this.props.itemsListFun; 
-    items.sort((a, b) => {
-      return parseFloat(a.price) - parseFloat(b.price)
-    })
-    for (var i = 0; i < items.length; i++) {
-      let cost = parseFloat(items[i].price);
-      if ( cost + currentCost <= budget) {
-        currentCost += cost;
-        budgItems.push(items[i]);
-      } else {
-        break;
-      }
-    }
-    this.setState({
-      affordableTreats: budgItems
-    })
-  }
-
-  componentDidMount() {
-    this.rankGroceries();
-  }
-
   render(){
-    const items = this.state.affordableTreats; 
+    const items = this.props.itemFun; 
     return(
       <div className="splurges">
         <h4>Treats:</h4>
