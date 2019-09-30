@@ -39,7 +39,6 @@ app.post('/api/item', (req, res) => {
 })
 
 app.put('/api/item/update', (req, res) => {
-  console.log(req.body);
   const itemName = { item: req.body.item};
   const updateObj = req.body;
   Items.update(itemName, updateObj, (err, product) => {
@@ -48,13 +47,16 @@ app.put('/api/item/update', (req, res) => {
     }
     res.sendStatus(200);
   })
-  // const data = new Items(req.body);
-  // data.save((err, product) => {
-  //   if (err) {
-  //     res.sendStatus(500);
-  //   } 
-  //   res.sendStatus(200);
-  // });
+})
+
+app.delete('/api/item/delete', (req, res) => {
+  const itemName = req.body.item;
+  Items.deleteOne({item: itemName}, (err, product) => {
+    if (err) {
+      res.sendStatus(500);
+    }
+    res.sendStatus(200);
+  })
 })
 
 

@@ -80,7 +80,7 @@ class App extends Component{
         this.setState({
           updateItem: false
         });
-        this.getFunItems();
+        this.getAllRequiredItems();
       }
     })
   }
@@ -91,12 +91,10 @@ class App extends Component{
       url: '/api/item/delete',
       data: dataObj,
       success: (response) => {
-        const sortedResponse = this.rankGroceries(response, this.state.budget);
         this.setState({
-          itemsListRequired: sortedResponse.budgItems,
-          treatBudget: sortedResponse.changeLeft
+          deleteItem: false
         });
-        this.getFunItems();
+        this.getAllRequiredItems();
       }
     })
   }

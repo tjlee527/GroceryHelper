@@ -70,15 +70,6 @@ class UpdateForm extends React.Component {
             onChange={this.handleInputChange} />
         </label>
         <br />
-        <label>
-          Required?:
-          <input
-            name="required"
-            type="checkbox"
-            checked={this.state.required}
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
        <input type="submit" value="Submit" />
       </form>
     );

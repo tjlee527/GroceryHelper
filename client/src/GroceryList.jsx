@@ -23,7 +23,7 @@ class GroceryList extends Component{
 
   render(){
     const items = this.props.itemsListRequired || []; 
-    const funItems = this.props.funItems || [];
+    const funItems = this.props.itemFun || [];
     const nextTime = this.props.nextTime || [];
     return(
       <div className="necessities">
