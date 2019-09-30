@@ -6,6 +6,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingBasket} from '@fortawesome/free-solid-svg-icons'
+
 import NewForm from './Form.jsx';
 import GroceryList from './GroceryList.jsx';
 import Budget from './Budget.jsx';
@@ -174,7 +177,7 @@ class App extends Component{
       <Container>
         <Col md={8}>
           <div className="App">
-            <h1> GROCERY LIST </h1>
+            <h1> <FontAwesomeIcon size='lg' className='icon' icon={faShoppingBasket}/>  GROCERY LIST </h1>
             <h4>Budget: ${this.state.budget ? parseFloat(this.state.budget).toFixed(2) : null}</h4>
             <h4>Change: ${this.state.leftoverChange ? parseFloat(this.state.leftoverChange).toFixed(2) : null}</h4>
             {

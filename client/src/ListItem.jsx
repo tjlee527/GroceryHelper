@@ -1,5 +1,9 @@
 import React, { Component} from "react";
 import "./App.css";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus} from '@fortawesome/free-solid-svg-icons'
+
 import ItemDetail from './ItemDetail.jsx';
 import ListGroup from 'react-bootstrap/ListGroup';
 
@@ -22,15 +26,10 @@ class ListItem extends Component{
 
   render(){
     return(
-      // <div>
-      //   <div onClick={this.clickHandler}>
-      //     {this.props.item.item}
-      //   </div>
-      //   {this.state.showItem ? <ItemDetail item={this.props.item}/> : null}
-      // </div>
-
-      <ListGroup.Item action onClick={this.clickHandler}>
-        {this.props.item.item}
+      <ListGroup.Item>
+        <h5>
+          {this.props.item.item} <FontAwesomeIcon onClick={this.clickHandler} className='icon' icon={faPlus} />
+        </h5>
         {this.state.showItem ? <ItemDetail item={this.props.item}/> : null}
       </ListGroup.Item>
     );

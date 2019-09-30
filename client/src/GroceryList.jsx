@@ -7,6 +7,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown} from '@fortawesome/free-solid-svg-icons'
+
 
 class GroceryList extends Component{
   constructor(props) {
@@ -40,20 +43,25 @@ class GroceryList extends Component{
                 <ListItem key={index} item={item} />
               )}
             </ListGroup>
-            
-            <div className="listTitle">TREATS</div>
-            <ListGroup>
-            {funItems.map((item, index) => 
-              <ListItem key={index} item={item} />
-            )}
-            </ListGroup>
-            <div className="listTitle" onClick={this.clickHandler}>OVER BUDGET</div>
-            {this.state.nextTime ? 
-            <ListGroup> 
-            {nextTime.map((item, index) => 
-              <ListItem key={index} item={item} />
-            )}
-            </ListGroup> : null }
+            <div className='listSection'>
+              <div className="listTitle">TREATS</div>
+              <ListGroup>
+              {funItems.map((item, index) => 
+                <ListItem key={index} item={item} />
+              )}
+              </ListGroup>
+            </div>
+            {nextTime.length > 0 ?
+            <div className='listSection'> 
+              <div className="listTitle" >OVER BUDGET  <FontAwesomeIcon size='lg' onClick={this.clickHandler} className='icon' icon={faChevronDown} /></div>
+              {this.state.nextTime ? 
+              <ListGroup className='overBudget'> 
+              {nextTime.map((item, index) => 
+                <ListItem key={index} item={item} />
+              )}
+              </ListGroup> : null }
+            </div>
+            : null }
           </div>
         </Col>
       </Container>

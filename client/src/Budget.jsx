@@ -37,7 +37,7 @@ class Budget extends React.Component {
   render() {
     return (
       <div>
-        <Form onSubmit={this.handleSubmit}>
+        <Form className='form' onSubmit={this.handleSubmit}>
           <Form.Row>
             <Form.Group as={Col} md="4" controlId='item'>
               <Form.Label>

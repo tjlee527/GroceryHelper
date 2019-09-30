@@ -9,11 +9,18 @@
   padding-top: 20px;
   padding-bottom: 20px;
 }
+.icon {
+  color: #285C4D;
+  padding-left: 8px;
+}
 
+.form {
+  padding-top: 30px;
+}
 .button {
   color: black;
   background-color: white;
-  border: 2px solid #024638;
+  border: 2px solid #285C4D;
   border-radius: 5px;
   padding: 4px 8px;
 }
@@ -23,6 +30,14 @@
   transition-duration: 0.4s;
 }
 .button:hover {
-  background-color: #024638; /* Green */
+  background-color: #285C4D; /* Green */
   color: white;
+}
+
+.overBudget {
+  padding-bottom: 30px;
+}
+
+.listSection {
+  margin-bottom: 25px;
 }

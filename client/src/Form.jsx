@@ -47,7 +47,8 @@ class NewForm extends React.Component {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form className='form' onSubmit={this.handleSubmit}>
+        <h4>Add New Item</h4>
         <Form.Row>
           <Form.Group as={Col} md="4" controlId='item'>
             <Form.Label>
