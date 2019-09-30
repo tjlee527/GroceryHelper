@@ -58,9 +58,9 @@ class DeleteForm extends React.Component {
         <Form.Row>
           {this.checkRequiredFields() ? 
             <Form.Group as={Col} md="4" controlId='button'>
-              <Button variant="outline-success" type="submit">
+              <button className='button' variant="outline-success" type="submit">
                 Submit
-              </Button> 
+              </button> 
             </Form.Group>: null} 
         </Form.Row>
       </Form>

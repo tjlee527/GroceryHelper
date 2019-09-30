@@ -2,6 +2,9 @@ import React, { Component} from "react";
 import "./App.css";
 import $ from 'jquery';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import NewForm from './Form.jsx';
 import GroceryList from './GroceryList.jsx';
@@ -71,7 +74,8 @@ class App extends Component{
         const sortedResponse = this.rankGroceries(response, this.state.treatBudget);
         this.setState({
           itemFun: sortedResponse.budgItems,
-          leftoverChange: sortedResponse.changeLeft
+          leftoverChange: sortedResponse.changeLeft,
+          nextTime: sortedResponse.nextTime
         })
       }
     })
@@ -141,7 +145,7 @@ class App extends Component{
     for (var i = 0; i < items.length; i++) {
       let cost = parseFloat(items[i].price);
       let amt = parseFloat(items[i].quantity);
-      if ( (cost * amt) + currentCost <= budget) {
+      if ( (cost * amt) + currentCost <= budget) { 
         currentCost += (cost * amt);
         budgItems.push(items[i]);
       } else {
@@ -150,10 +154,11 @@ class App extends Component{
     }
 
     let changeLeft = budget - currentCost; 
+    let nextTimeAdd = this.state.nextTime.concat(nextTime);
     const result = {
       budgItems,
       changeLeft,
-      nextTime
+      nextTime: nextTimeAdd
     }
     return result;
   }
@@ -166,61 +171,65 @@ class App extends Component{
 
   render(){
     return(
-      <div className="App">
-        <h1> Groceries </h1>
-        <h4>Budget: ${this.state.budget ? parseFloat(this.state.budget).toFixed(2) : null}</h4>
-        <h4>Change: ${this.state.leftoverChange ? parseFloat(this.state.leftoverChange).toFixed(2) : null}</h4>
-        {
-          this.state.itemsListRequired && this.state.itemFun && this.state.budget ? 
-          <GroceryList 
-            itemFun={this.state.itemFun} 
-            itemsListRequired={this.state.itemsListRequired} 
-            budget={this.state.budget}
-            nextTime={this.state.nextTime}/> 
-          : null
-        }
-        {
-          this.checkState('pickBudget') ? 
-          (this.state.pickBudget ? 
-          < Budget 
-            changeBudget={this.changeBudget} 
-            budget={this.state.budget}/> 
-          : <Button variant="outline-success" value='pickBudget' onClick={this.formButtonHandler}>Adjust Budget</Button>)
-          : null
-        }
-        {
-          this.checkState('form') ? 
-          (this.state.form ? 
-          <div>
-            <NewForm addNewItem={this.addNewItem}/> 
-            <Button variant="outline-secondary" value='form' onClick={this.formButtonHandler}>Go Back</Button>
-          </div> : 
-            <Button variant="outline-success" value='form' onClick={this.formButtonHandler}>Add New Item</Button>)
-          : null
-        }
-        {
-          this.checkState('updateItem') ? 
-          (this.state.updateItem ? 
-          <div>
-            <UpdateForm 
-            updateItem={this.updateItem}/> 
-             <Button variant="outline-secondary" value='updateItem' onClick={this.formButtonHandler}>Go Back</Button>
-          </div> : 
-            <Button variant="outline-success" value='updateItem' onClick={this.formButtonHandler}>Update Item</Button>)
-            : null
-        }
-        {
-          this.checkState('deleteItem') ? 
-          (this.state.deleteItem  ? 
-          <div>
-            <DeleteForm 
-            deleteItem={this.deleteItem}/> 
-            <Button variant="outline-secondary" value='deleteItem' onClick={this.formButtonHandler}>Go Back</Button>
-          </div> : 
-            <Button variant="outline-success" value='deleteItem' onClick={this.formButtonHandler}>Delete Item</Button>)
-            : null
-        }
-      </div>
+      <Container>
+        <Col md={8}>
+          <div className="App">
+            <h1> GROCERY LIST </h1>
+            <h4>Budget: ${this.state.budget ? parseFloat(this.state.budget).toFixed(2) : null}</h4>
+            <h4>Change: ${this.state.leftoverChange ? parseFloat(this.state.leftoverChange).toFixed(2) : null}</h4>
+            {
+              this.state.itemsListRequired && this.state.itemFun && this.state.budget ? 
+              <GroceryList 
+                itemFun={this.state.itemFun} 
+                itemsListRequired={this.state.itemsListRequired} 
+                budget={this.state.budget}
+                nextTime={this.state.nextTime}/> 
+              : null
+            }
+            {
+              this.checkState('pickBudget') ? 
+              (this.state.pickBudget ? 
+              < Budget 
+                changeBudget={this.changeBudget} 
+                budget={this.state.budget}/> 
+              : <button className='button' variant="outline-success" value='pickBudget' onClick={this.formButtonHandler}>Adjust Budget</button>)
+              : null
+            }
+            {
+              this.checkState('form') ? 
+              (this.state.form ? 
+              <div>
+                <NewForm addNewItem={this.addNewItem}/> 
+                <button className='button' variant="outline-secondary" value='form' onClick={this.formButtonHandler}>Go Back</button>
+              </div> : 
+                <button className='button' variant="outline-success" value='form' onClick={this.formButtonHandler}>Add New Item</button>)
+              : null
+            }
+            {
+              this.checkState('updateItem') ? 
+              (this.state.updateItem ? 
+              <div>
+                <UpdateForm 
+                updateItem={this.updateItem}/> 
+                <button className='button' variant="outline-secondary" value='updateItem' onClick={this.formButtonHandler}>Go Back</button>
+              </div> : 
+                <button className='button' variant="outline-success" value='updateItem' onClick={this.formButtonHandler}>Update Item</button>)
+                : null
+            }
+            {
+              this.checkState('deleteItem') ? 
+              (this.state.deleteItem  ? 
+              <div>
+                <DeleteForm 
+                deleteItem={this.deleteItem}/> 
+                <button className='button' variant="outline-secondary" value='deleteItem' onClick={this.formButtonHandler}>Go Back</button>
+              </div> : 
+                <button className='button' variant="outline-success" value='deleteItem' onClick={this.formButtonHandler}>Delete Item</button>)
+                : null
+            }
+          </div>
+        </Col>
+      </Container>
     );
   }
 }
