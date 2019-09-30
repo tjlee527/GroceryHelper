@@ -1,15 +1,15 @@
 import React, { Component} from "react";
 import "./App.css";
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
 
 class UpdateForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // required: false,
       item: '',
-      // updateObj: {}
-      // price: '',
-      // quantity: ''
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -44,34 +44,46 @@ class UpdateForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Item: 
-          <input
-            name="item"
-            type="text"
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <br />
-        <label>
-          Price $: 
-          <input
-            name="price"
-            type="text"
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Quantity: 
-          <input
-            name="quantity"
-            type="text"
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-       <input type="submit" value="Submit" />
-      </form>
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Row>
+          <Form.Group as={Col} md="4" controlId='item'>
+            <Form.Label>
+              Item: 
+              <Form.Control
+                name="item"
+                type="text"
+                onChange={this.handleInputChange} />
+            </Form.Label>
+          </Form.Group>
+        </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} md="4" controlId='price'>
+            <Form.Label>
+              Price $: 
+              <Form.Control
+                name="price"
+                type="text"
+                onChange={this.handleInputChange} />
+            </Form.Label>
+          </Form.Group>
+          <Form.Group as={Col} md="4" controlId='quantity'>
+            <Form.Label>
+              Quantity: 
+              <Form.Control
+                name="quantity"
+                type="text"
+                onChange={this.handleInputChange} />
+            </Form.Label>
+          </Form.Group>
+        </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} md="4" controlId='button'>
+            <Button variant="outline-success" type="submit">
+              Submit
+            </Button>
+          </Form.Group>
+        </Form.Row>
+      </Form>
     );
   }
 }

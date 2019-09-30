@@ -1,7 +1,11 @@
 import React, { Component} from "react";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
-class Form extends React.Component {
+class NewForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,62 +41,65 @@ class Form extends React.Component {
   }
 
   checkRequiredFields() {
-    const {item, type, price} = this.state;
-    return item && type && price;
+    const {item, price} = this.state;
+    return item && price;
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Item: 
-          <input
-            name="item"
-            type="text"
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Select Type: 
-          <select value={this.state.type} onChange={this.handleTypeChange}>
-            <option value=""></option>
-            <option value="protein">Protein</option>
-            <option value="vegetable">Vegetable</option>
-            <option value="carb">Carb</option>
-            <option value="pantry">Pantry Staple</option>
-            <option value="snack">Other Yummies</option>
-          </select>
-        </label>
-        <br />
-        <label>
-          Price $: 
-          <input
-            name="price"
-            type="text"
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Quantity: 
-          <input
-            name="quantity"
-            type="text"
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Required?:
-          <input
-            name="required"
-            type="checkbox"
-            checked={this.state.required}
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        {this.checkRequiredFields() ? <input type="submit" value="Submit" /> : null}
-      </form>
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Row>
+          <Form.Group as={Col} md="4" controlId='item'>
+            <Form.Label>
+              Item: 
+              <Form.Control
+                name="item"
+                type="text"
+                onChange={this.handleInputChange} />
+            </Form.Label>
+          </Form.Group>
+        </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} md="4" controlId='price'>
+            <Form.Label>
+              Price $: 
+              <Form.Control
+                name="price"
+                type="text"
+                onChange={this.handleInputChange} />
+            </Form.Label>
+          </Form.Group>
+          <Form.Group as={Col} md="4" controlId='quantity'>
+            <Form.Label>
+              Quantity: 
+              <Form.Control
+                name="quantity"
+                type="text"
+                onChange={this.handleInputChange} />
+            </Form.Label>
+          </Form.Group>
+        </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} md="4" controlId="formBasicCheckbox">
+            Required?:
+            <Form.Check
+              name="required"
+              type="checkbox"
+              checked={this.state.required}
+              onChange={this.handleInputChange} />
+          </Form.Group>
+        </Form.Row>
+        <Form.Row>
+          {this.checkRequiredFields() ? 
+          <Form.Group as={Col} md="4" controlId='button'>
+            <Button variant="outline-success" type="submit">
+            Submit
+            </Button> 
+          </Form.Group> : null} 
+        </Form.Row>
+      </Form>
     );
   }
 }
 
-export default Form;
+export default NewForm;

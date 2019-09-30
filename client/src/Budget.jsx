@@ -1,5 +1,9 @@
 import React, { Component} from "react";
 import "./App.css";
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
 
 class Budget extends React.Component {
   constructor(props) {
@@ -33,17 +37,26 @@ class Budget extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Change Budget:
-            <input
-              name="budget"
-              type="text"
-              onChange={this.handleInputChange} />
-          </label>
-          <br />
-           {this.checkRequiredFields() ? <input type="submit" value="Submit" /> : null}
-        </form>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Row>
+            <Form.Group as={Col} md="4" controlId='item'>
+              <Form.Label>
+                Budget: 
+                <Form.Control
+                  name="budget"
+                  type="text"
+                  onChange={this.handleInputChange} />
+              </Form.Label>
+            </Form.Group>
+            {this.checkRequiredFields() ? 
+              <Form.Group as={Col} md="4" controlId='button'>
+                <Button variant="outline-success" type="submit">
+                  Submit
+                </Button> 
+              </Form.Group>
+              : null}
+          </Form.Row>
+        </Form>
       </div>
     );
   }
