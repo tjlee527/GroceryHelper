@@ -1,15 +1,15 @@
 import React, { Component} from "react";
 import "./App.css";
 
-class Form extends React.Component {
+class UpdateForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      required: false,
+      // required: false,
       item: '',
-      type: '',
-      price: '',
-      quantity: ''
+      // updateObj: {}
+      // price: '',
+      // quantity: ''
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -33,12 +33,13 @@ class Form extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.addNewItem(this.state);
+    this.props.updateItem(this.state);
+    this.setState({ });
   }
 
   checkRequiredFields() {
-    const {item, type, price} = this.state;
-    return item && type && price;
+    const {item, price} = this.state;
+    return item && price;
   }
 
   render() {
@@ -52,17 +53,6 @@ class Form extends React.Component {
             onChange={this.handleInputChange} />
         </label>
         <br />
-        <label>
-          Select Type: 
-          <select value={this.state.type} onChange={this.handleTypeChange}>
-            <option value=""></option>
-            <option value="protein">Protein</option>
-            <option value="vegetable">Vegetable</option>
-            <option value="carb">Carb</option>
-            <option value="pantry">Pantry Staple</option>
-            <option value="snack">Other Yummies</option>
-          </select>
-        </label>
         <br />
         <label>
           Price $: 
@@ -89,10 +79,10 @@ class Form extends React.Component {
             onChange={this.handleInputChange} />
         </label>
         <br />
-        {this.checkRequiredFields() ? <input type="submit" value="Submit" /> : null}
+       <input type="submit" value="Submit" />
       </form>
     );
   }
 }
 
-export default Form;
+export default UpdateForm;

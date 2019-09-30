@@ -13,6 +13,9 @@ class ItemDetail extends Component{
         <ul> 
           Price: ${this.props.item.price} 
         </ul>
+        <ul> 
+          Quantity: {this.props.item.quantity}
+        </ul>
       </div>
     );
   }

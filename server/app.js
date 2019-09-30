@@ -38,6 +38,25 @@ app.post('/api/item', (req, res) => {
   });
 })
 
+app.put('/api/item/update', (req, res) => {
+  console.log(req.body);
+  const itemName = { item: req.body.item};
+  const updateObj = req.body;
+  Items.update(itemName, updateObj, (err, product) => {
+    if (err) {
+      res.sendStatus(500);
+    }
+    res.sendStatus(200);
+  })
+  // const data = new Items(req.body);
+  // data.save((err, product) => {
+  //   if (err) {
+  //     res.sendStatus(500);
+  //   } 
+  //   res.sendStatus(200);
+  // });
+})
+
 
 
 app.listen(port, () => console.log(`server listening on port ${port}`));

@@ -4,7 +4,9 @@ import $ from 'jquery';
 import Form from './Form.jsx';
 import GroceryList from './GroceryList.jsx';
 import Budget from './Budget.jsx';
-import Treats from './Treats.jsx';
+import UpdateForm from './UpdateForm.jsx';
+import DeleteForm from './DeleteForm.jsx';
+
 
 
 class App extends Component{
@@ -13,11 +15,17 @@ class App extends Component{
     this.state = {
       form: false,
       pickBudget: true,
+      updateItem: false,
+      deleteItem: false,
+      nextTime: []
     };
 
     this.addNewItem = this.addNewItem.bind(this);
     this.changeBudget = this.changeBudget.bind(this);
     this.formButtonHandler = this.formButtonHandler.bind(this);
+    this.updateItem = this.updateItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
+
   }
 
   addNewItem(dataObj) {
@@ -63,6 +71,36 @@ class App extends Component{
     })
   }
 
+  updateItem(dataObj) {
+    $.ajax({
+      type: 'PUT',
+      data: dataObj,
+      url: '/api/item/update',
+      success: () => {
+        this.setState({
+          updateItem: false
+        });
+        this.getFunItems();
+      }
+    })
+  }
+
+  deleteItem(dataObj) {
+    $.ajax({
+      type: 'DELETE',
+      url: '/api/item/delete',
+      data: dataObj,
+      success: (response) => {
+        const sortedResponse = this.rankGroceries(response, this.state.budget);
+        this.setState({
+          itemsListRequired: sortedResponse.budgItems,
+          treatBudget: sortedResponse.changeLeft
+        });
+        this.getFunItems();
+      }
+    })
+  }
+
   changeBudget(budget) {
     this.setState({
       budget: budget,
@@ -88,11 +126,12 @@ class App extends Component{
 
     for (var i = 0; i < items.length; i++) {
       let cost = parseFloat(items[i].price);
-      if ( cost + currentCost <= budget) {
-        currentCost += cost;
+      let amt = parseFloat(items[i].quantity);
+      if ( (cost * amt) + currentCost <= budget) {
+        currentCost += (cost * amt);
         budgItems.push(items[i]);
       } else {
-        break;
+        this.state.nextTime.push(items[i]);
       }
     }
 
@@ -109,20 +148,15 @@ class App extends Component{
     return(
       <div className="App">
         <h1> Groceries </h1>
-        <h4>Budget: {this.state.budget ? this.state.budget : null}</h4>
-        <h4>Change: {this.state.leftoverChange ? parseFloat(this.state.leftoverChange).toFixed(2) : null}</h4>
+        <h4>Budget: ${this.state.budget ? parseFloat(this.state.budget).toFixed(2) : null}</h4>
+        <h4>Change: ${this.state.leftoverChange ? parseFloat(this.state.leftoverChange).toFixed(2) : null}</h4>
         {
           this.state.itemsListRequired && this.state.itemFun && this.state.budget ? 
           <GroceryList 
             itemFun={this.state.itemFun} 
             itemsListRequired={this.state.itemsListRequired} 
-            budget={this.state.budget}/> 
-          : null
-        }
-        {
-          this.state.itemFun ? 
-          <Treats 
-            itemFun={this.state.itemFun} />
+            budget={this.state.budget}
+            nextTime={this.state.nextTime}/> 
           : null
         }
         {
@@ -137,6 +171,18 @@ class App extends Component{
           <Form 
             addNewItem={this.addNewItem}/> : 
             <button value='form' onClick={this.formButtonHandler}>Add New Item</button>
+        }
+        {
+          this.state.updateItem ? 
+          <UpdateForm 
+            updateItem={this.updateItem}/> : 
+            <button value='updateItem' onClick={this.formButtonHandler}>Update Item</button>
+        }
+        {
+          this.state.deleteItem ? 
+          <DeleteForm 
+            deleteItem={this.deleteItem}/> : 
+            <button value='deleteItem' onClick={this.formButtonHandler}>Delete Item</button>
         }
       </div>
     );

@@ -14,7 +14,6 @@ class Budget extends React.Component {
   }
 
   handleInputChange(event) {
-    // this.props.changeBudget(event);
     const target = event.target;
     const value = target.value;
 
@@ -25,7 +24,6 @@ class Budget extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.changeBudget(this.state.budget);
-    // this.props.addNewItem(this.state);
   }
   checkRequiredFields() {
     const {budget} = this.state;
