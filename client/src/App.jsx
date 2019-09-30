@@ -21,6 +21,7 @@ class App extends Component{
       updateItem: false,
       deleteItem: false,
       nextTime: [],
+      clicked: '',
     };
 
     this.addNewItem = this.addNewItem.bind(this);
@@ -112,9 +113,14 @@ class App extends Component{
 
   formButtonHandler(event) {
     let button = event.target.value;
-    let toggle = !this.state[button]
+    let toggle = !this.state[button];
+    let current = ''
+    if (toggle === true) {
+      current = button;
+    }
     this.setState({
       [button]: toggle,
+      clicked: current
     })
   }
 
@@ -145,6 +151,11 @@ class App extends Component{
     return result;
   }
 
+  checkState(buttonName) {
+    let check = (this.state.clicked === '' || this.state.clicked === buttonName)
+    return check
+  }
+
 
   render(){
     return(
@@ -169,30 +180,36 @@ class App extends Component{
           : <Button variant="outline-success" value='pickBudget' onClick={this.formButtonHandler}>Adjust Budget</Button>
         }
         {
-          this.state.form ? 
+          this.checkState('form') ? 
+          (this.state.form ? 
           <div>
             <NewForm addNewItem={this.addNewItem}/> 
             <Button variant="outline-secondary" value='form' onClick={this.formButtonHandler}>Go Back</Button>
           </div> : 
-            <Button variant="outline-success" value='form' onClick={this.formButtonHandler}>Add New Item</Button>
+            <Button variant="outline-success" value='form' onClick={this.formButtonHandler}>Add New Item</Button>)
+          : null
         }
         {
-          this.state.updateItem ? 
+          this.checkState('updateItem') ? 
+          (this.state.updateItem ? 
           <div>
             <UpdateForm 
             updateItem={this.updateItem}/> 
              <Button variant="outline-secondary" value='updateItem' onClick={this.formButtonHandler}>Go Back</Button>
           </div> : 
-            <Button variant="outline-success" value='updateItem' onClick={this.formButtonHandler}>Update Item</Button>
+            <Button variant="outline-success" value='updateItem' onClick={this.formButtonHandler}>Update Item</Button>)
+            : null
         }
         {
-          (this.state.deleteItem) ? 
+          this.checkState('deleteItem') ? 
+          (this.state.deleteItem  ? 
           <div>
             <DeleteForm 
             deleteItem={this.deleteItem}/> 
             <Button variant="outline-secondary" value='deleteItem' onClick={this.formButtonHandler}>Go Back</Button>
           </div> : 
-            <Button variant="outline-success" value='deleteItem' onClick={this.formButtonHandler}>Delete Item</Button>
+            <Button variant="outline-success" value='deleteItem' onClick={this.formButtonHandler}>Delete Item</Button>)
+            : null
         }
       </div>
     );
