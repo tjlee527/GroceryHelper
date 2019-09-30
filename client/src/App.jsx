@@ -21,7 +21,7 @@ class App extends Component{
       updateItem: false,
       deleteItem: false,
       nextTime: [],
-      clicked: '',
+      clicked: 'pickBudget',
     };
 
     this.addNewItem = this.addNewItem.bind(this);
@@ -39,7 +39,8 @@ class App extends Component{
       data: dataObj,
       success: (response) => {
         this.setState({
-          form: false
+          form: false,
+          clicked: ''
         })
         this.getAllRequiredItems();
       }
@@ -54,7 +55,8 @@ class App extends Component{
         const sortedResponse = this.rankGroceries(response, this.state.budget);
         this.setState({
           itemsListRequired: sortedResponse.budgItems,
-          treatBudget: sortedResponse.changeLeft
+          treatBudget: sortedResponse.changeLeft,
+          nextTime: sortedResponse.nextTime
         });
         this.getFunItems();
       }
@@ -82,7 +84,8 @@ class App extends Component{
       url: '/api/item/update',
       success: () => {
         this.setState({
-          updateItem: false
+          updateItem: false,
+          clicked: ''
         });
         this.getAllRequiredItems();
       }
@@ -96,7 +99,8 @@ class App extends Component{
       data: dataObj,
       success: (response) => {
         this.setState({
-          deleteItem: false
+          deleteItem: false,
+          clicked: ''
         });
         this.getAllRequiredItems();
       }
@@ -107,6 +111,7 @@ class App extends Component{
     this.setState({
       budget: budget,
       pickBudget: false,
+      clicked: ''
     });
     this.getAllRequiredItems();
   }
@@ -127,6 +132,7 @@ class App extends Component{
   rankGroceries(items, budget) {
     let currentCost = 0;
     let budgItems = [];
+    let nextTime = [];
     
     items.sort((a, b) => {
       return parseFloat(a.price) - parseFloat(b.price)
@@ -139,20 +145,21 @@ class App extends Component{
         currentCost += (cost * amt);
         budgItems.push(items[i]);
       } else {
-        this.state.nextTime.push(items[i]);
+        nextTime.push(items[i]);
       }
     }
 
     let changeLeft = budget - currentCost; 
     const result = {
       budgItems,
-      changeLeft
+      changeLeft,
+      nextTime
     }
     return result;
   }
 
   checkState(buttonName) {
-    let check = (this.state.clicked === '' || this.state.clicked === buttonName)
+    let check = (this.state.budget && this.state.clicked === '' || this.state.clicked === buttonName)
     return check
   }
 
@@ -173,11 +180,13 @@ class App extends Component{
           : null
         }
         {
-          this.state.pickBudget ? 
+          this.checkState('pickBudget') ? 
+          (this.state.pickBudget ? 
           < Budget 
             changeBudget={this.changeBudget} 
             budget={this.state.budget}/> 
-          : <Button variant="outline-success" value='pickBudget' onClick={this.formButtonHandler}>Adjust Budget</Button>
+          : <Button variant="outline-success" value='pickBudget' onClick={this.formButtonHandler}>Adjust Budget</Button>)
+          : null
         }
         {
           this.checkState('form') ? 
