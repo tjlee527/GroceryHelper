@@ -52,6 +52,7 @@ class DeleteForm extends React.Component {
               <Form.Control
                 name="item"
                 type="text"
+                placeholder='ex. apples'
                 onChange={this.handleInputChange} />
             </Form.Label>
           </Form.Group>

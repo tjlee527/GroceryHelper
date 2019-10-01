@@ -12,12 +12,10 @@ class ImgCar extends Component{
 
 
   render(){
-    return(
-      <Col className='imgCar' sm={3}>
-        <div className='square'>
-          <img src={this.props.url}></img>
-        </div>
-      </Col>
+    return (
+      <div className='imgContainer'>
+        <img src={this.props.url}></img>
+      </div>
     );
   }
 }

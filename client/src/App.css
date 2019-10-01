@@ -3,9 +3,30 @@
   font-family: 'Barlow', Helvetica, sans-serif;
 }
 
+.homeIcon {
+  color: white;
+  /* background-color: white; */
+}
+
+h1 {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.budgetTitle {
+  padding-top: 15px;
+}
+
+.navigation {
+  background-color: #285C4D;
+  color: white;
+}
+
 img {
+  margin: 2px 4px;
   max-width: 100%;
-  height: auto;
+  height: 100%;
+  padding: 4px 4px;
 }
 
 .square {
@@ -15,8 +36,12 @@ img {
 
 .arrow {
   color: #285C4D;
-  margin-top: 175px;
+  margin-top: 125px;
   float: right;
+}
+
+.arrowRight {
+  float: left;
 }
 
 .listTitle {
@@ -28,6 +53,11 @@ img {
 .icon {
   color: #285C4D;
   padding-left: 8px;
+}
+
+.imgContainer {
+  width: 200px;
+  height: 300px;
 }
 
 .form {

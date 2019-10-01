@@ -45,6 +45,7 @@ class Budget extends React.Component {
                 <Form.Control
                   name="budget"
                   type="text"
+                  placeholder='00.00'
                   onChange={this.handleInputChange} />
               </Form.Label>
             </Form.Group>

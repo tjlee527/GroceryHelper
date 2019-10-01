@@ -56,6 +56,7 @@ class NewForm extends React.Component {
               <Form.Control
                 name="item"
                 type="text"
+                placeholder='ex. apples'
                 onChange={this.handleInputChange} />
             </Form.Label>
           </Form.Group>
@@ -66,6 +67,7 @@ class NewForm extends React.Component {
               Price $: 
               <Form.Control
                 name="price"
+                placeholder='00.00'
                 type="text"
                 onChange={this.handleInputChange} />
             </Form.Label>
@@ -75,6 +77,7 @@ class NewForm extends React.Component {
               Quantity: 
               <Form.Control
                 name="quantity"
+                placeholder='ex. 5'
                 type="text"
                 onChange={this.handleInputChange} />
             </Form.Label>

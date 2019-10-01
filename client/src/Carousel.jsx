@@ -61,7 +61,7 @@ class Carousel extends Component{
       <Container>
         <Row>
           <Col sm={12}>
-            <div className="listTitle">INSPIRATION</div>
+            <div className="listTitle">RECIPES</div>
           </Col>
         </Row>
         <Row>
@@ -74,7 +74,7 @@ class Carousel extends Component{
           )}
           <Col sm={1}>
             {this.state.end === 6 ? null :
-            <FontAwesomeIcon value='right' size='2x' onClick={this.clickHandlerRight} className='arrow' icon={faChevronRight}/> }
+            <FontAwesomeIcon value='right' size='2x' onClick={this.clickHandlerRight} className='arrowRight arrow' icon={faChevronRight}/> }
           </Col>
         </Row>
       </Container>

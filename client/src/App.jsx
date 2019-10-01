@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingBasket} from '@fortawesome/free-solid-svg-icons'
 
+import Navigation from './NavBar.jsx';
 import NewForm from './Form.jsx';
 import GroceryList from './GroceryList.jsx';
 import Budget from './Budget.jsx';
@@ -78,7 +79,6 @@ class App extends Component{
       url: '/api/item/fun',
       success: (response) => {
         const sortedResponse = this.rankGroceries(response, this.state.treatBudget);
-        console.log(sortedResponse)
         this.setState({
           itemFun: sortedResponse.budgItems,
           leftoverChange: sortedResponse.changeLeft,
@@ -176,13 +176,17 @@ class App extends Component{
 
 
   render(){
-    return(
+    return (
+      <div>
+      <Navigation />
       <Container>
         <Col md={8}>
           <div className="App">
             <h1> <FontAwesomeIcon size='lg' className='icon' icon={faShoppingBasket}/>  GROCERY LIST </h1>
-            <h4>Budget: ${this.state.budget ? parseFloat(this.state.budget).toFixed(2) : null}</h4>
-            <h4>Change: ${this.state.leftoverChange ? parseFloat(this.state.leftoverChange).toFixed(2) : null}</h4>
+            <div className='budgetTitle'>
+              <h4>Budget: ${this.state.budget ? parseFloat(this.state.budget).toFixed(2) : null}</h4>
+              <h4>Change: ${this.state.leftoverChange ? parseFloat(this.state.leftoverChange).toFixed(2) : null}</h4>
+            </div>
             {
               this.state.itemsListRequired && this.state.itemFun && this.state.budget ? 
               <GroceryList 
@@ -238,6 +242,7 @@ class App extends Component{
         </Col>
         <Carousel />
       </Container>
+      </div>
     );
   }
 }

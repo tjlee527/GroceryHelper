@@ -53,6 +53,7 @@ class UpdateForm extends React.Component {
               <Form.Control
                 name="item"
                 type="text"
+                placeholder='ex. apples'
                 onChange={this.handleInputChange} />
             </Form.Label>
           </Form.Group>
@@ -64,6 +65,7 @@ class UpdateForm extends React.Component {
               <Form.Control
                 name="price"
                 type="text"
+                placeholder='00.00'
                 onChange={this.handleInputChange} />
             </Form.Label>
           </Form.Group>
@@ -71,6 +73,7 @@ class UpdateForm extends React.Component {
             <Form.Label>
               Quantity: 
               <Form.Control
+                placeholder='ex. 5'
                 name="quantity"
                 type="text"
                 onChange={this.handleInputChange} />
