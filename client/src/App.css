@@ -3,9 +3,18 @@
   font-family: 'Barlow', Helvetica, sans-serif;
 }
 
+div {
+  font-family: 'Barlow', Helvetica, sans-serif;
+}
 .homeIcon {
   color: white;
   /* background-color: white; */
+}
+.Recipes {
+  font-size: 30px;
+}
+.ingredientTitle {
+  font-size: 18px;
 }
 
 h1 {
@@ -53,6 +62,10 @@ img {
 .icon {
   color: #285C4D;
   padding-left: 8px;
+}
+
+.Recipes {
+  font-size: 15px;
 }
 
 .imgContainer {

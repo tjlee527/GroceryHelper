@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const Items = require('../database/index.js');
+const axios = require('axios');
+
 const port = 3000;
 
 
@@ -26,6 +28,19 @@ app.get('/api/item/fun', (req, res) => {
     }
     res.send(docs)
   });
+})
+
+app.get('/api/recipes', (req, res) => {
+  const query = req.query.list.splice(0,3).join(',')
+  axios.get(`http://www.recipepuppy.com/api/?i=${query}`)
+    .then((response) => {
+      const results = response.data.results.slice(0, 5);
+      res.send(results);
+    }) 
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    })
 })
 
 app.post('/api/item', (req, res) => {

@@ -61,7 +61,7 @@ class Carousel extends Component{
       <Container>
         <Row>
           <Col sm={12}>
-            <div className="listTitle">RECIPES</div>
+            <div className="listTitle">INSPIRATION</div>
           </Col>
         </Row>
         <Row>

@@ -16,6 +16,7 @@ import Budget from './Budget.jsx';
 import UpdateForm from './UpdateForm.jsx';
 import DeleteForm from './DeleteForm.jsx';
 import Carousel from './Carousel.jsx';
+import Recipes from './Recipes.jsx';
 
 
 
@@ -240,6 +241,7 @@ class App extends Component{
             }
           </div>
         </Col>
+        {this.state.itemsListRequired ? <Recipes itemsListRequired={this.state.itemsListRequired}/> : null}
         <Carousel />
       </Container>
       </div>
