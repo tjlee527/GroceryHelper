@@ -14,6 +14,7 @@ import GroceryList from './GroceryList.jsx';
 import Budget from './Budget.jsx';
 import UpdateForm from './UpdateForm.jsx';
 import DeleteForm from './DeleteForm.jsx';
+import Carousel from './Carousel.jsx';
 
 
 
@@ -27,6 +28,7 @@ class App extends Component{
       updateItem: false,
       deleteItem: false,
       nextTime: [],
+      nextTreats: [],
       clicked: 'pickBudget',
     };
 
@@ -59,6 +61,7 @@ class App extends Component{
       url: '/api/item/required',
       success: (response) => {
         const sortedResponse = this.rankGroceries(response, this.state.budget);
+        
         this.setState({
           itemsListRequired: sortedResponse.budgItems,
           treatBudget: sortedResponse.changeLeft,
@@ -75,10 +78,11 @@ class App extends Component{
       url: '/api/item/fun',
       success: (response) => {
         const sortedResponse = this.rankGroceries(response, this.state.treatBudget);
+        console.log(sortedResponse)
         this.setState({
           itemFun: sortedResponse.budgItems,
           leftoverChange: sortedResponse.changeLeft,
-          nextTime: sortedResponse.nextTime
+          nextTimeTreats: sortedResponse.nextTime
         })
       }
     })
@@ -157,11 +161,10 @@ class App extends Component{
     }
 
     let changeLeft = budget - currentCost; 
-    let nextTimeAdd = this.state.nextTime.concat(nextTime);
     const result = {
       budgItems,
       changeLeft,
-      nextTime: nextTimeAdd
+      nextTime: nextTime
     }
     return result;
   }
@@ -186,7 +189,8 @@ class App extends Component{
                 itemFun={this.state.itemFun} 
                 itemsListRequired={this.state.itemsListRequired} 
                 budget={this.state.budget}
-                nextTime={this.state.nextTime}/> 
+                nextTime={this.state.nextTime}
+                nextTimeTreats={this.state.nextTimeTreats}/> 
               : null
             }
             {
@@ -232,6 +236,7 @@ class App extends Component{
             }
           </div>
         </Col>
+        <Carousel />
       </Container>
     );
   }

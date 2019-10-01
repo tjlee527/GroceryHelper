@@ -3,6 +3,22 @@
   font-family: 'Barlow', Helvetica, sans-serif;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.square {
+  height:300px;
+  width: 300px;
+}
+
+.arrow {
+  color: #285C4D;
+  margin-top: 175px;
+  float: right;
+}
+
 .listTitle {
   color: black;
   font-size: 25px;
@@ -23,6 +39,7 @@
   border: 2px solid #285C4D;
   border-radius: 5px;
   padding: 4px 8px;
+  margin: 2px;
 }
 
 .button {

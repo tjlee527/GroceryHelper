@@ -28,11 +28,19 @@ class GroceryList extends Component{
     })
   }
 
+  checkTreats() {
+    const nextTime = this.props.nextTime || [];
+    const nextTimeTreats = this.props.nextTimeTreats || [];
+    const check = nextTime.length > 0 || nextTimeTreats.length > 0;
+    return check;
+  }
+
 
   render(){
     const items = this.props.itemsListRequired || []; 
     const funItems = this.props.itemFun || [];
     const nextTime = this.props.nextTime || [];
+    const nextTimeTreats = this.props.nextTimeTreats || [];
     return(
       <Container>
         <Col sm={10}>
@@ -51,12 +59,15 @@ class GroceryList extends Component{
               )}
               </ListGroup>
             </div>
-            {nextTime.length > 0 ?
+            {this.checkTreats() ?
             <div className='listSection'> 
               <div className="listTitle" >OVER BUDGET  <FontAwesomeIcon size='lg' onClick={this.clickHandler} className='icon' icon={faChevronDown} /></div>
               {this.state.nextTime ? 
               <ListGroup className='overBudget'> 
               {nextTime.map((item, index) => 
+                <ListItem key={index} item={item} />
+              )}
+              {nextTimeTreats.map((item, index) => 
                 <ListItem key={index} item={item} />
               )}
               </ListGroup> : null }
