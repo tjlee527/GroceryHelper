@@ -19,15 +19,6 @@ class Recipies extends Component{
     this.state = {
       list: [],
     }
-
-    this.clickHandler = this.clickHandler.bind(this);
-  }
-
-  clickHandler() {
-    const show = !this.state.nextTime
-    this.setState({
-      list: this.props.itemsListRequired
-    })
   }
 
   getItemNames() {
@@ -45,6 +36,13 @@ class Recipies extends Component{
   componentDidMount() {
     const list = this.getItemNames();
     this.getRecipes(list);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.itemsListRequired !== prevProps.itemsListRequired) {
+      const list = this.getItemNames();
+      this.getRecipes(list);
+    }
   }
 
   getRecipes(dataArr) {
