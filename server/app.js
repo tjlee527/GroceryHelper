@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const Items = require('../database/index.js');
 const axios = require('axios');
-const unsplashToken = require('./unsplash.js');
+// const unsplashToken = require('./unsplash.js');
+const unsplashToken = process.env.TOKEN;
 
 const port = process.env.PORT || 3000;
 
