@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1/groceryList', {useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1/groceryList', {useNewUrlParser: true});
 
 const db = mongoose.connection;
 const Schema = mongoose.Schema;
@@ -15,7 +15,7 @@ db.once('open', function() {
 const itemSchema = new Schema({
   item: String,
   type: String,
-  price: String, 
+  price: String,
   required: String,
   quantity: Number
 });

@@ -5,8 +5,7 @@ const Items = require('../database/index.js');
 const axios = require('axios');
 const unsplashToken = require('./unsplash.js');
 
-const port = 3000;
-
+const port = process.env.PORT || 3000;
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -38,7 +37,7 @@ app.get('/api/recipes', (req, res) => {
     .then((response) => {
       const results = response.data.results.slice(0, 5);
       res.send(results);
-    }) 
+    })
     .catch((err) => {
       axios.get(`http://www.recipepuppy.com/api/?i=${first[0]}`)
         .then((response) => {
@@ -57,7 +56,7 @@ app.post('/api/item', (req, res) => {
   data.save((err, product) => {
     if (err) {
       res.sendStatus(500);
-    } 
+    }
     res.sendStatus(200);
   });
 })
@@ -95,7 +94,7 @@ app.get('/api/unsplash', (req, res) => {
         return arr;
       }, [])
       res.send(imgArr);
-    }) 
+    })
     .catch((err) => {
       console.log(err);
       res.sendStatus(500);
