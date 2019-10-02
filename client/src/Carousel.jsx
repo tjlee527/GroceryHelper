@@ -1,6 +1,7 @@
 import React, { Component} from "react";
 import "./App.css";
 import ImgCar from './ImgCar.jsx';
+import $ from 'jquery';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -16,7 +17,8 @@ class Carousel extends Component{
     this.state = {
       current: ['https://images.unsplash.com/photo-1501959915551-4e8d30928317?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80', 'https://images.unsplash.com/photo-1485962398705-ef6a13c41e8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60', 'https://images.unsplash.com/photo-1481931098730-318b6f776db0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60', 'https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60', 'https://images.unsplash.com/photo-1553455860-2fa544e14141?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60', 'https://images.unsplash.com/photo-1475855841503-917d97ca77b4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60'],
       start: 0,
-      end: 3
+      end: 3,
+      imgUrls: []
     }
 
     this.clickHandlerRight = this.clickHandlerRight.bind(this);
@@ -54,9 +56,49 @@ class Carousel extends Component{
     this.setState(state);
   }
 
+  getItemNames() {
+    const items = this.props.itemsListRequired || [];
+    const list = items.reduce((arr, itemObj) => {
+      arr.push(itemObj.item);
+      return arr;
+    }, []);
+    this.setState({
+      list
+    });
+    return list;
+  };
+
+  getImgs(dataArr) {
+    $.ajax({
+      type: 'GET',
+      url: '/api/unsplash',
+      data: {
+        list: dataArr,
+      }, 
+      success: (response) => {
+        this.setState({
+          imgUrls: response
+        });
+      }
+    })
+  };
+
+
+  componentDidMount() {
+    const list = this.getItemNames();
+    this.getImgs(list);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.itemsListRequired !== prevProps.itemsListRequired) {
+      const list = this.getItemNames();
+      this.getImgs(list);
+    }
+  }
+
 
   render(){
-    const imgs = this.state.current.slice(this.state.start, this.state.end); 
+    const imgs = this.state.imgUrls.slice(this.state.start, this.state.end); 
     return(
       <Container>
         <Row>
@@ -73,7 +115,7 @@ class Carousel extends Component{
             <ImgCar key={index} url={image} />
           )}
           <Col sm={1}>
-            {this.state.end === 6 ? null :
+            {this.state.end === this.state.imgUrls.length-1 ? null :
             <FontAwesomeIcon value='right' size='2x' onClick={this.clickHandlerRight} className='arrowRight arrow' icon={faChevronRight}/> }
           </Col>
         </Row>

@@ -242,7 +242,7 @@ class App extends Component{
           </div>
         </Col>
         {this.state.itemsListRequired ? <Recipes itemsListRequired={this.state.itemsListRequired}/> : null}
-        <Carousel />
+        {this.state.itemsListRequired ? <Carousel itemsListRequired={this.state.itemsListRequired}/> : null }
       </Container>
       </div>
     );

@@ -68,7 +68,7 @@ class Recipies extends Component{
     return(
       <Container>
         <Row>
-          <Col sm={12}>
+          <Col sm={8}>
             <div className="listTitle">RECIPES</div>
           </Col>
         </Row>

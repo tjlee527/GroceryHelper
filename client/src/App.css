@@ -26,6 +26,7 @@ h1 {
   padding-top: 15px;
 }
 
+
 .navigation {
   background-color: #285C4D;
   color: white;
@@ -36,6 +37,8 @@ img {
   max-width: 100%;
   height: 100%;
   padding: 4px 4px;
+  overflow: hidden;
+  object-fit: cover;
 }
 
 .square {
@@ -69,8 +72,8 @@ img {
 }
 
 .imgContainer {
-  width: 200px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
 }
 
 .form {

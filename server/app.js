@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const Items = require('../database/index.js');
 const axios = require('axios');
+const unsplashToken = require('./unsplash.js');
 
 const port = 3000;
 
@@ -31,15 +32,23 @@ app.get('/api/item/fun', (req, res) => {
 })
 
 app.get('/api/recipes', (req, res) => {
-  const query = req.query.list.splice(0,3).join(',')
+  const first = req.query.list.slice(0,1);
+  const query = req.query.list.slice(0,3).join(',');
   axios.get(`http://www.recipepuppy.com/api/?i=${query}`)
     .then((response) => {
       const results = response.data.results.slice(0, 5);
       res.send(results);
     }) 
     .catch((err) => {
-      console.log(err);
-      res.sendStatus(500);
+      axios.get(`http://www.recipepuppy.com/api/?i=${first[0]}`)
+        .then((response) => {
+          const results = response.data.results.slice(0, 5);
+          res.send(results);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.sendStatus(500);
+        })
     })
 })
 
@@ -72,6 +81,25 @@ app.delete('/api/item/delete', (req, res) => {
     }
     res.sendStatus(200);
   })
+})
+
+app.get('/api/unsplash', (req, res) => {
+  const arr = req.query.list;
+  const query = arr[0] + ' ' + arr[arr.length-1];
+  // const query = arr.join(' ');
+  axios.get(`https://api.unsplash.com/search/photos/?page=1&per_page=10&query=food ${query}&client_id=${unsplashToken}`)
+    .then((response) => {
+      const results = response.data.results.slice(0, 12);
+      const imgArr = results.reduce((arr, img) => {
+        arr.push(img.urls.regular);
+        return arr;
+      }, [])
+      res.send(imgArr);
+    }) 
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    })
 })
 
 
